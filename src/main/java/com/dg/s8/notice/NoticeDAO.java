@@ -6,6 +6,7 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.dg.s8.util.Pager;
 
 
 @Repository
@@ -15,8 +16,8 @@ public class NoticeDAO {
 	private SqlSession sqlSession;
 	private final String NAMESPACE="com.dg.s8.notice.NoticeDAO.";
 	
-	public List<NoticeDTO> getList() {
-		return sqlSession.selectList(NAMESPACE+"getList");
+	public List<NoticeDTO> getList(Pager pager) {
+		return sqlSession.selectList(NAMESPACE+"getList", pager);
 	}
 
 	public NoticeDTO getSelect(NoticeDTO noticeDTO) {
@@ -31,6 +32,11 @@ public class NoticeDAO {
 	
 	public int setDelete(Long num) {
 		return sqlSession.delete(NAMESPACE+"setDelete", num);
+	}
+	
+	public int setUpdate(NoticeDTO noticeDTO) {
+
+		return sqlSession.update(NAMESPACE + "setUpdate", noticeDTO);
 	}
 
 }

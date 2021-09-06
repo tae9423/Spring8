@@ -22,6 +22,7 @@
 		<h1>hits : ${dtov.hits }</h1>
 		
 		<a href="./noticeDelete?num=${dtov.num}">Delete</a>
+		<a href="./noticeUpdate?num=${dtov.num}">Update</a>
 
 	</div>
 </body>

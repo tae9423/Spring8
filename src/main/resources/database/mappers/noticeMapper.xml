@@ -5,12 +5,29 @@
 
 <mapper namespace="com.dg.s8.notice.NoticeDAO">
 
+	<update id="setUpdate"
+		parameterType="com.dg.s8.notice.NoticeDTO">
+		UPDATE NOTICE SET TITLE=#{title},
+		CONTENTS=#{contents}, WRITER=#{writer}
+		WHERE
+		num=#{num}
+	</update>
+
    <select id="getSelect" parameterType="com.dg.s8.notice.NoticeDTO" resultType="com.dg.s8.notice.NoticeDTO">
       SELECT * FROM NOTICE WHERE NUM=#{num}
    </select>
    
-   <select id="getList" resultType="com.dg.s8.notice.NoticeDTO">
-      SELECT * FROM NOTICE
+   <select id="getList" resultType="com.dg.s8.notice.NoticeDTO" parameterType="com.dg.s8.util.Pager">
+      SELECT * FROM
+		(SELECT rownum R,
+		NT.* FROM
+		(SELECT *
+		FROM NOTICE
+		ORDER BY NUM DESC
+		)
+		NT
+		)
+		WHERE R BETWEEN #{startRow} AND #{lastRow}
    </select>
    
    <insert id="setInsert" parameterType="com.dg.s8.notice.NoticeDTO">
